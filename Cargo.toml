@@ -1,0 +1,63 @@
+[package]
+name = "bevy_console_two"
+version = "0.1.0"
+edition = "2024"
+description = "A minimal, extensible developer console for Bevy inspired by Source Engine"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/trickstertwo/bevy_console"
+keywords = ["bevy", "console", "gamedev", "debug", "convar"]
+categories = ["game-development", "development-tools"]
+
+[dependencies]
+bevy = { version = "0.18.0", default-features = false, features = [
+    "bevy_state",
+    "bevy_asset",
+    "bevy_log",
+    "bevy_color",
+    "std",
+    "multi_threaded",
+] }
+
+# Optional: UI backends
+bevy_egui = { version = "0.39.0", optional = true }
+
+# Optional: Persistence
+ron = { version = "0.12.0", optional = true }
+serde = { version = "1.0", features = ["derive"], optional = true }
+
+# Optional: Log capture (for egui UI)
+tracing = { version = "0.1", optional = true }
+tracing-subscriber = { version = "0.3", optional = true }
+
+[dev-dependencies]
+bevy = { version = "0.18.0", default-features = true }
+tempfile = "3.10"
+
+[features]
+default = ["egui"]
+
+# Enable all features (except terminal, which is for dedicated servers)
+full = ["egui", "persist"]
+
+# UI Backends
+egui = [
+    "dep:bevy_egui",
+    "dep:tracing",
+    "dep:tracing-subscriber",
+]
+
+# Terminal backend for dedicated servers (stdin/stdout)
+terminal = []
+
+# Persistence
+persist = ["dep:ron", "dep:serde"]
+
+[profile.dev.package."*"]
+opt-level = 3
+
+[profile.dev]
+opt-level = 1
+
+[profile.release]
+lto = "thin"
+opt-level = 3
