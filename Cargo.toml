@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2024"
 description = "A minimal, extensible developer console for Bevy inspired by Source Engine"
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/trickstertwo/bevy_console"
+repository = "https://github.com/trickstertwo/bevy_console_two"
 keywords = ["bevy", "console", "gamedev", "debug", "convar"]
 categories = ["game-development", "development-tools"]
 
